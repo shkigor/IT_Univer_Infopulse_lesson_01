@@ -15,12 +15,13 @@ public class Part04_Batch {
         // Мы сделали для наглядности
         Class.forName("org.postgresql.Driver");
 
-        String url = "jdbc:postgresql://127.0.0.1:5432/myjavadb";
+        String url = "jdbc:postgresql://127.0.0.1:5432/univerlesson01";
         Connection con = DriverManager.getConnection(url, "postgres", "postgres");
 
         if (con == null) return;
 
         Statement st = con.createStatement();
+        // batch -> пакет (данных) (несколько записей, обрабатываемых как единое целое)
         st.addBatch("insert into clients(name, lastname) values ('Ivan', 'Ivanov')");
         st.addBatch("insert into clients(name, lastname) values ('Ivan1', 'Ivanov1')");
         int res[] = st.executeBatch();

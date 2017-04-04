@@ -12,7 +12,7 @@ public class Part03_CallableStatement {
         // Мы сделали для наглядности
         Class.forName("org.postgresql.Driver");
 
-        String url = "jdbc:postgresql://127.0.0.1:5432/myjavadb";
+        String url = "jdbc:postgresql://127.0.0.1:5432/univerlesson01";
         Connection con = DriverManager.getConnection(url, "postgres", "postgres");
 
         if (con == null) return;
