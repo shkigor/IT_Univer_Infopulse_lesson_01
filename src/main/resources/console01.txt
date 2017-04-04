@@ -6,44 +6,47 @@ WARNING: Console code page (437) differs from Windows code page (1252)
          page "Notes for Windows users" for details.
 Type "help" for help.
 
-postgres=# create database myjavadb;
+postgres=# create database univerlesson01;
 CREATE DATABASE
 =====================================
 
 
-postgres=# \c myjavadb
+/**
+Connection
+  \c[onnect] {[DBNAME|- USER|- HOST|- PORT|-] | conninfo}
+*/
+
+postgres=# \c univerlesson01
 WARNING: Console code page (437) differs from Windows code page (1252)
          8-bit characters might not work correctly. See psql reference
          page "Notes for Windows users" for details.
-You are now connected to database "myjavadb" as user "postgres".
+You are now connected to database "univerlesson01" as user "postgres".
 =====================================
 
 
-myjavadb=# create table clients(id serial not null, name varchar(30) not null, lastname varchar(30) not null, primary key(id));
+univerlesson01=# create table clients(id serial not null, name varchar(30) not null, lastname varchar(30) not null, primary key(id));
 CREATE TABLE
 =====================================
 
 
-myjavadb=# select * from clients;
+univerlesson01=# select * from clients;
  id | name  | lastname
 ----+-------+----------
   1 | vasya | pupkin
 (1 row)
 
 
-myjavadb=# select * from clients;
+univerlesson01=# select * from clients;
  id | name  | lastname
 ----+-------+----------
   1 | vasya | pupkin
   2 | Petya | Petrov
 (2 rows)
 
-myjavadb=# $$ delimeter '//';
-myjavadb$# delimeter '//';
-
-myjavadb=# create or replace function getnamebyid(in p_id int, out p_name varchar(30)) returns varchar as $$
-myjavadb$# begin
-myjavadb$# select name into p_name from clients where id=p_id;
-myjavadb$# end; $$language plpgsql;
+univerlesson01=# create or replace function getnamebyid(in p_id int, out p_name varchar(30)) returns varchar as '
+univerlesson01'# begin
+univerlesson01'# select name into p_name from clients where id=p_id;
+univerlesson01'# end;
+univerlesson01'# ' LANGUAGE plpgsql;
 CREATE FUNCTION
-myjavadb=#
+univerlesson01=#
