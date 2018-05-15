@@ -26,6 +26,28 @@ public class Part01_Statement {
         while (rs.next()) {
             System.out.println(rs.getInt("id") + " " + rs.getString("name") + " " + rs.getString("lastname"));
         }
+
+        // Прокручиваемый ResultSet
+        DatabaseMetaData dbmd = con.getMetaData();
+        int JDBCVersion = dbmd.getJDBCMajorVersion();
+        boolean srs = dbmd.supportsResultSetType(ResultSet.TYPE_SCROLL_INSENSITIVE);
+        if (JDBCVersion > 2 || srs == true)
+        {
+            // давай, прокручивай!
+            Statement stmt = con.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE, // такой ResultSet допускает итерации назад и вперед, но если данные в базе данных изменятся, ResultSet не отразит этого. Пожалуй, этот тип прокручиваемого ResultSet ― наиболее востребованный;
+                    ResultSet.CONCUR_READ_ONLY);
+            ResultSet scrollingRS = stmt.executeQuery(selectSql);
+            if (scrollingRS.first()) { // next(), previous(), relative(), absolute()
+                System.out.println("\nFirst ROW:");
+                System.out.println(scrollingRS.getInt("id") + " " + scrollingRS.getString("name") + " " + scrollingRS.getString("lastname"));
+            }
+            if (scrollingRS.last()) {
+                System.out.println("\nLast ROW:");
+                System.out.println(scrollingRS.getInt("id") + " " + scrollingRS.getString("name") + " " + scrollingRS.getString("lastname"));
+            }
+        }
+
         st.close();
 
         con.close();

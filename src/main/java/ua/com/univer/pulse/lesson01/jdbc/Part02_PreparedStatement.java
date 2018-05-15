@@ -1,9 +1,6 @@
 package ua.com.univer.pulse.lesson01.jdbc;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * Created by IShklyar on 04.04.2017.
@@ -24,6 +21,15 @@ public class Part02_PreparedStatement {
         pstm.setString(1, "Petya");
         pstm.setString(2, "Petrov");
         pstm.execute();
+
+        Statement st = con.createStatement();
+        String selectSql = "select * from clients";
+        ResultSet rs = st.executeQuery(selectSql);
+        while (rs.next()) {
+            System.out.println(rs.getInt("id") + " " + rs.getString("name") + " " + rs.getString("lastname"));
+        }
+        st.close();
+
         pstm.close();
 
         con.close();
